@@ -34,22 +34,30 @@ import { buildAdditives, analyzeIngredient } from '../lib/ingredientDatabase';
 
 // ── API Endpoints ─────────────────────────────────────────────────────────────
 const BASE = {
-  food:   import.meta.env.DEV ? '/off-food'   : 'https://world.openfoodfacts.org',
-  th:     import.meta.env.DEV ? '/off-th'     : 'https://th.openfoodfacts.org',
-  beauty: import.meta.env.DEV ? '/off-beauty' : 'https://world.openbeautyfacts.org',
-  pet:    import.meta.env.DEV ? '/off-pet'    : 'https://world.openpetfoodfacts.org',
+  food:   import.meta.env.DEV ? '/off-food'   : '/api/off-proxy',
+  th:     import.meta.env.DEV ? '/off-th'     : '/api/off-proxy',
+  beauty: import.meta.env.DEV ? '/off-beauty' : '/api/off-proxy',
+  pet:    import.meta.env.DEV ? '/off-pet'    : '/api/off-proxy',
 };
 
 const API = {
-  foodV2:  (bc: string) => `${BASE.food}/api/v2/product/${bc}?fields=product_name,product_name_en,product_name_th,brands,image_front_url,image_url,image_ingredients_url,image_nutrition_url,image_packaging_url,nutriments,additives_tags,allergens_tags,traces_tags,nutriscore_grade,nova_group,ecoscore_grade,ecoscore_score,categories_tags,ingredients_text,ingredients_text_en,labels_tags,countries_tags,manufacturing_places,origins,brands,quantity,packaging_tags,serving_size,serving_quantity,stores_tags,url`,
-  foodV0:  (bc: string) => `${BASE.food}/api/v0/product/${bc}.json`,
-  th:      (bc: string) => `${BASE.th}/api/v0/product/${bc}.json`,
-  beauty:  (bc: string) => `${BASE.beauty}/api/v0/product/${bc}.json`,
-  pet:     (bc: string) => `${BASE.pet}/api/v0/product/${bc}.json`,
-  search:  (bc: string) => `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc)}&search_simple=1&action=process&json=1&page_size=5&fields=code,product_name,product_name_en,brands,image_front_url,nutriments,additives_tags,allergens_tags,nutriscore_grade,nova_group,categories_tags,ingredients_text,labels_tags`,
+  foodV2:  (bc: string) => import.meta.env.DEV
+    ? `${BASE.food}/api/v2/product/${bc}?fields=product_name,product_name_en,product_name_th,brands,image_front_url,image_url,image_ingredients_url,image_nutrition_url,image_packaging_url,nutriments,additives_tags,allergens_tags,traces_tags,nutriscore_grade,nova_group,ecoscore_grade,ecoscore_score,categories_tags,ingredients_text,ingredients_text_en,labels_tags,countries_tags,manufacturing_places,origins,brands,quantity,packaging_tags,serving_size,serving_quantity,stores_tags,url`
+    : `${BASE.food}/api/v2/product/${bc}?domain=world&fields=product_name,product_name_en,product_name_th,brands,image_front_url,image_url,image_ingredients_url,image_nutrition_url,image_packaging_url,nutriments,additives_tags,allergens_tags,traces_tags,nutriscore_grade,nova_group,ecoscore_grade,ecoscore_score,categories_tags,ingredients_text,ingredients_text_en,labels_tags,countries_tags,manufacturing_places,origins,brands,quantity,packaging_tags,serving_size,serving_quantity,stores_tags,url`,
+  foodV0:  (bc: string) => import.meta.env.DEV ? `${BASE.food}/api/v0/product/${bc}.json` : `${BASE.food}/api/v0/product/${bc}.json?domain=world`,
+  th:      (bc: string) => import.meta.env.DEV ? `${BASE.th}/api/v0/product/${bc}.json` : `${BASE.th}/api/v0/product/${bc}.json?domain=th`,
+  beauty:  (bc: string) => import.meta.env.DEV ? `${BASE.beauty}/api/v0/product/${bc}.json` : `${BASE.beauty}/api/v0/product/${bc}.json?domain=beauty`,
+  pet:     (bc: string) => import.meta.env.DEV ? `${BASE.pet}/api/v0/product/${bc}.json` : `${BASE.pet}/api/v0/product/${bc}.json?domain=pet`,
+  search:  (bc: string) => import.meta.env.DEV
+    ? `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc)}&search_simple=1&action=process&json=1&page_size=5&fields=code,product_name,product_name_en,brands,image_front_url,nutriments,additives_tags,allergens_tags,nutriscore_grade,nova_group,categories_tags,ingredients_text,labels_tags`
+    : `${BASE.food}/cgi/search.pl?domain=world&search_terms=${encodeURIComponent(bc)}&search_simple=1&action=process&json=1&page_size=5&fields=code,product_name,product_name_en,brands,image_front_url,nutriments,additives_tags,allergens_tags,nutriscore_grade,nova_group,categories_tags,ingredients_text,labels_tags`,
   // Alternative search strategies
-  searchByBrand: (bc: string) => `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc.slice(0, 8))}&search_simple=1&action=process&json=1&page_size=10&fields=code,product_name,product_name_en,brands,image_front_url,nutriments`,
-  searchFuzzy:   (bc: string) => `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc)}&search_simple=0&action=process&json=1&page_size=10`,
+  searchByBrand: (bc: string) => import.meta.env.DEV
+    ? `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc.slice(0, 8))}&search_simple=1&action=process&json=1&page_size=10&fields=code,product_name,product_name_en,brands,image_front_url,nutriments`
+    : `${BASE.food}/cgi/search.pl?domain=world&search_terms=${encodeURIComponent(bc.slice(0, 8))}&search_simple=1&action=process&json=1&page_size=10&fields=code,product_name,product_name_en,brands,image_front_url,nutriments`,
+  searchFuzzy:   (bc: string) => import.meta.env.DEV
+    ? `${BASE.food}/cgi/search.pl?search_terms=${encodeURIComponent(bc)}&search_simple=0&action=process&json=1&page_size=10`
+    : `${BASE.food}/cgi/search.pl?domain=world&search_terms=${encodeURIComponent(bc)}&search_simple=0&action=process&json=1&page_size=10`,
 };
 
 // ── Nutrition extraction ───────────────────────────────────────────────────────

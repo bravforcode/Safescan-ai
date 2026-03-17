@@ -221,11 +221,16 @@ export function ProductDetailPage() {
       const newReview = await safescanInsert<ProductReviewRow>('product_reviews', {
         id: crypto.randomUUID(),
         user_id: user.id,
+        user_name: user.user_metadata?.full_name || null,
+        user_avatar: user.user_metadata?.avatar_url || null,
         barcode: barcode,
+        product_name: product?.name || null,
+        product_brand: product?.brand || null,
+        product_image: product?.image || null,
         rating: rating,
         taste_rating: null,
         review_text: reviewText.trim(),
-        image_url: null,
+        likes: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
