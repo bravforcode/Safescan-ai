@@ -1,0 +1,23 @@
+{
+  "name": "SafeScan AI",
+  "short_name": "SafeScan",
+  "description": "Thai barcode-scanning app for instant health and safety analysis.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1E88E5",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/vite.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["health", "lifestyle", "shopping"]
+}

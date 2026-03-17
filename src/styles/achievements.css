@@ -1,0 +1,140 @@
+/* Achievement Section - Smooth Motion Effects */
+
+/* Medal icon floating effect */
+.medal-float {
+  animation: medalFloat 4s ease-in-out infinite;
+}
+
+@keyframes medalFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Progress bar smooth fill with spring easing */
+.progress-fill {
+  animation: progressFill 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Badge card stagger appear animation */
+.badge-appear {
+  animation: badgeAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes badgeAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Badge hover glow effect */
+.badge-glow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge-glow:hover {
+  filter: drop-shadow(0 0 12px currentColor);
+  transform: scale(1.08);
+}
+
+/* Level badge pulse effect */
+.level-badge-pulse {
+  animation: levelPulse 2s ease-in-out infinite;
+}
+
+@keyframes levelPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(30, 136, 229, 0);
+  }
+}
+
+/* Medal background glow */
+.medal-glow {
+  animation: medalGlow 3s ease-in-out infinite;
+}
+
+@keyframes medalGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(30, 136, 229, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(30, 136, 229, 0.6);
+  }
+}
+
+/* Smooth text fade in */
+.text-fade-in {
+  animation: textFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Info box slide in */
+.info-slide-in {
+  animation: infoSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes infoSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth color transition */
+.smooth-color {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Backdrop blur effect for cards */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Smooth scale on hover with no jitter */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}

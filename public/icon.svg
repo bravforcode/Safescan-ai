@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background with rounded corners (maskable) -->
+  <rect width="512" height="512" rx="96" fill="#1E88E5"/>
+  <!-- Inner safe zone: barcode design centered -->
+  <!-- Barcode bars -->
+  <rect x="108" y="148" width="32"  height="216" rx="6" fill="white"/>
+  <rect x="156" y="148" width="16"  height="216" rx="6" fill="white"/>
+  <rect x="188" y="148" width="40"  height="216" rx="6" fill="white"/>
+  <rect x="244" y="148" width="16"  height="216" rx="6" fill="white"/>
+  <rect x="276" y="148" width="32"  height="216" rx="6" fill="white"/>
+  <rect x="324" y="148" width="16"  height="216" rx="6" fill="white"/>
+  <rect x="356" y="148" width="40"  height="216" rx="6" fill="white"/>
+  <!-- Scan line (teal accent) -->
+  <rect x="96" y="248" width="320" height="20" rx="10" fill="#00E5A0" opacity="0.95"/>
+  <!-- Corner brackets (viewfinder feel) -->
+  <path d="M96 164 L96 140 L120 140" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+  <path d="M416 164 L416 140 L392 140" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+  <path d="M96 348 L96 372 L120 372" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+  <path d="M416 348 L416 372 L392 372" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+</svg>
